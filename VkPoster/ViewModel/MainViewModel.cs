@@ -1,4 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
+using System.Windows.Input;
 using VkPoster.Model;
 
 namespace VkPoster.ViewModel
@@ -9,17 +12,31 @@ namespace VkPoster.ViewModel
 
         public const string WelcomeTitlePropertyName = "WelcomeTitle";
 
-        private string _welcomeTitle = string.Empty;
+        private string welcomeTitle = string.Empty;
+        private object selectedViewModel;
 
         public string WelcomeTitle
         {
             get
             {
-                return _welcomeTitle;
+                return welcomeTitle;
             }
             set
             {
-                Set(ref _welcomeTitle, value);
+                Set(ref welcomeTitle, value);
+            }
+        }
+        
+        public object SelectedViewModel
+        {
+            get
+            {
+                return selectedViewModel;
+            }
+            set
+            {
+                selectedViewModel = value;
+                RaisePropertyChanged(() => SelectedViewModel);
             }
         }
 
@@ -36,6 +53,17 @@ namespace VkPoster.ViewModel
 
                     WelcomeTitle = item.Title;
                 });
+        }
+
+        public RelayCommand ShowAuthentificationViewCommand
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    Messenger.Default.Send(new NotificationMessage("ConnetToVk"));
+                });
+            }
         }
     }
 }

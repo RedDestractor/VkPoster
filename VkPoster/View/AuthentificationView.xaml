@@ -1,4 +1,4 @@
-﻿<Window x:Class="VkPoster.MainWindow"
+﻿<Window x:Class="VkPoster.View.AuthentificationView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,22 +8,14 @@
         Height="300"
         Width="300"
         Title="MVVM Light Application"
-        DataContext="{Binding Main, Source={StaticResource Locator}}">
-    
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Skins/MainSkin.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
+        DataContext="{Binding Authentification, Source={StaticResource Locator}}">
 
     <Grid x:Name="LayoutRoot">
 
         <TextBlock FontSize="36"
                    FontWeight="Bold"
                    Foreground="Purple"
-                   Text="{Binding WelcomeTitle}"
+                   Text="Nigga"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    TextWrapping="Wrap" />
