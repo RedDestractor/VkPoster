@@ -13,6 +13,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using VkPoster.Model;
+using VkPoster.Service;
 
 namespace VkPoster.ViewModel
 {
@@ -32,25 +33,18 @@ namespace VkPoster.ViewModel
             }
 
             SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<AuthentificationViewModel>();
+            SimpleIoc.Default.Register<IAuthService, AuthentificationService>();
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
             "CA1822:MarkMembersAsStatic",
             Justification = "This non-static member is needed for data binding purposes.")]
+
         public MainViewModel Main
         {
             get
             {
                 return ServiceLocator.Current.GetInstance<MainViewModel>();
-            }
-        }
-
-        public AuthentificationViewModel Authentification
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<AuthentificationViewModel>();
             }
         }
 

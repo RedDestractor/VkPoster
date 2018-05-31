@@ -7,18 +7,10 @@
         mc:Ignorable="d ignore"
         Height="300"
         Width="300"
-        Title="MVVM Light Application"
-        DataContext="{Binding Authentification, Source={StaticResource Locator}}">
+        Title="MVVM Light Application">
 
     <Grid x:Name="LayoutRoot">
-
-        <TextBlock FontSize="36"
-                   FontWeight="Bold"
-                   Foreground="Purple"
-                   Text="Nigga"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   TextWrapping="Wrap" />
-
+        <WebBrowser Name="webBrowser" HorizontalAlignment="Stretch" Margin="10,10,10,10" VerticalAlignment="Stretch" LoadCompleted="webBrowser_LoadCompleted"/>
     </Grid>
+    
 </Window>

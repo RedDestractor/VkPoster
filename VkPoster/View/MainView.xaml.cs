@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
 using System.Windows;
+using VkPoster.Service;
 using VkPoster.ViewModel;
 
 namespace VkPoster.View
