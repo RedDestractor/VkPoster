@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace VkPoster.ViewModel
 {
-    class AuthentificationViewModel
+    public class AuthentificationViewModel
     {
+        public string Text { get; set; }
+
+        public AuthentificationViewModel()
+        {
+            Text = "It works.";
+        }
     }
 }
