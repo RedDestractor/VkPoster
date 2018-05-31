@@ -25,7 +25,7 @@ namespace VkPoster.View
         public AuthentificationView()
         {
             InitializeComponent();
-
+            _authentificationService.DeleteCookie(new Uri("https://www.vk.com"));
             Closing += (s, e) => ViewModelLocator.Cleanup();
 
             _authentificationService = SimpleIoc.Default.GetInstance<IAuthService>();
@@ -47,12 +47,6 @@ namespace VkPoster.View
             {
                 MessageBox.Show(ex.Message);
             }
-        }
-
-        private void DeleteVkCookie()
-        {
-            var cookie = String.Format("c_user=; expires={0:R}; path=/; domain=.facebook.com", DateTime.UtcNow.AddDays(-1).ToString("R"));
-            Application.SetCookie(new Uri("https://www.vk.com"), cookie);
         }
     }
 }
