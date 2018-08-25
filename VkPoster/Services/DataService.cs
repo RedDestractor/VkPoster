@@ -6,7 +6,7 @@ namespace VkPoster.Model
     {
         public void GetData(Action<DataItem, Exception> callback)
         {
-            var item = new DataItem("Welcome to MVVM Light");
+            var item = new DataItem("Welcome to VkPoster!");
             callback(item, null);
         }
     }

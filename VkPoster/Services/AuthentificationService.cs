@@ -4,9 +4,12 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows;
 using System.Windows.Controls;
+using VkPoster.Constants;
 using VkPoster.Model;
+using VkPoster.View;
 using VkPoster.ViewModel;
 
 namespace VkPoster.Service
@@ -15,10 +18,11 @@ namespace VkPoster.Service
     {
         private const string AppId = "6495092";
         private const string Scope = "270336";
+        private bool FinishedConnection;
 
         public void GetOauthPage(WebBrowser webBrowser)
         {
-            var url = "https://oauth.vk.com/authorize?client_id=" + AppId + "&scope" + Scope + 
+            var url = "https://oauth.vk.com/authorize?client_id=" + AppId + "&scope" + Scope +
                       "redirect_uri=https://oauth.vk.com/blank.html&display=popup&response_type=token";
 
             webBrowser.Navigate(url);
@@ -63,3 +67,4 @@ namespace VkPoster.Service
         }
     }
 }
+

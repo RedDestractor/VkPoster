@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ignore="http://www.galasoft.ch/ignore"
         mc:Ignorable="d ignore"
-        Height="300"
-        Width="300"
-        Title="MVVM Light Application">
+        Height="344.8"
+        Width="695.945"
+        Title="VkPoster Authentification"
+        DataContext="{Binding Home, Source={StaticResource Locator}}">
 
     <Grid x:Name="LayoutRoot">
-        <WebBrowser Name="webBrowser" HorizontalAlignment="Stretch" Margin="10,10,10,10" VerticalAlignment="Stretch" LoadCompleted="webBrowser_LoadCompleted"/>
+        <WebBrowser Name="webBrowser" HorizontalAlignment="Stretch" Margin="10,10,10,10" VerticalAlignment="Stretch" LoadCompleted="LoadCompletedEvent"/>
     </Grid>
     
 </Window>
