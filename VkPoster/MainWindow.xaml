@@ -8,8 +8,8 @@
         xmlns:mvvmgalasoftCommand="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF4"
         xmlns:command="http://www.galasoft.ch/mvvmlight"
         mc:Ignorable="d"
-        Height="300"
-        Width="372.4"
+        Height="500"
+        Width="900"
         Title="VkPoster"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
 

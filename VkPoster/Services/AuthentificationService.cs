@@ -18,7 +18,6 @@ namespace VkPoster.Service
     {
         private const string AppId = "6495092";
         private const string Scope = "270336";
-        private bool FinishedConnection;
 
         public void GetOauthPage(WebBrowser webBrowser)
         {
