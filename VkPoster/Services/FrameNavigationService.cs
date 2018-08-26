@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using test.Interfaces;
+using VkPoster.Interfaces;
 
-namespace test.Services
+namespace VkPoster.Services
 {
     class FrameNavigationService : IFrameNavigationService, INotifyPropertyChanged
     {

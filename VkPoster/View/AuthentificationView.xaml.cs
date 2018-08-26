@@ -2,7 +2,6 @@
 using System;
 using System.Web;
 using System.Windows;
-using VkPoster.Constants;
 using VkPoster.ViewModel;
 
 namespace VkPoster.View
@@ -10,7 +9,7 @@ namespace VkPoster.View
     public partial class AuthentificationView : Window
     {
         private readonly IAuthService _authentificationService;
-        bool FinishedConnection;
+        bool IsConnectionFinished;
 
         public AuthentificationView()
         {
@@ -29,20 +28,14 @@ namespace VkPoster.View
         {
             try
             {
-                var url = e.Uri.Fragment;
-                if (url.Contains("access_token") && url.Contains("#"))
-                {
-                    url = (new System.Text.RegularExpressions.Regex("#")).Replace(url, "?", 1);
-                    PrivateInfo.Token = HttpUtility.ParseQueryString(url).Get("access_token");
-                    FinishedConnection = true;
-                }
+                IsConnectionFinished = _authentificationService.Authentificate(e.Uri.Fragment);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
 
-            if (FinishedConnection)
+            if (IsConnectionFinished)
             {
                 var viewModel = (HomeViewModel)DataContext;
                 viewModel.CloseAuthentificationViewCommand.Execute(null);

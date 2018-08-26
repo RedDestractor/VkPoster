@@ -15,9 +15,9 @@ using System.Windows.Shapes;
 
 namespace VkPoster.View
 {
-    public partial class WorkView : Page
+    public partial class GroupsSelectionView : Page
     {
-        public WorkView()
+        public GroupsSelectionView()
         {
             InitializeComponent();
         }

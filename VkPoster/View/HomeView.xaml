@@ -9,32 +9,36 @@
        DataContext="{Binding Home, Source={StaticResource Locator}}">
 
     <Grid>
-
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition />
+            <ColumnDefinition Width="190*" />
+            <ColumnDefinition Width="502*"/>
+            <ColumnDefinition Width="207*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <TextBlock FontSize="36"
                    FontWeight="Bold"
-                   Foreground="Purple"
-                   Text="{Binding WelcomeTitle}"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   TextWrapping="Wrap" 
-                   Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="2" />
+                   Foreground="DodgerBlue"
+                   Text="      Welcome to VkPoster!"
+                   TextWrapping="Wrap" Grid.Row="0" Margin="9.6,0,207,0" RenderTransformOrigin="0.5,0.435" Grid.ColumnSpan="2" Grid.Column="1" />
+
+        <TextBlock Margin="9.6,20,9.8,10" Grid.Row="1" TextWrapping="Wrap" 
+                   Text="The program allows you to select the groups which you are subscribed, so that VkPoster automatically post new from these groups in the group whose administrator you are." 
+                   Grid.RowSpan="2"
+                   FontSize="15"     
+                   Grid.Column="1"
+                   />
 
         <Button 
                    Command="{Binding ShowAuthentificationViewCommand}"
-                   Content="Connect"
-                   Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2">
-        </Button>
+                   Content="Connect" Grid.Row="4" Margin="9.6,2,9.8,2" Grid.Column="1" FontSize="25"
+                   />
+
     </Grid>
 </Page>

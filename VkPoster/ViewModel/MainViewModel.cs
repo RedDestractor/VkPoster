@@ -1,6 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using test.Interfaces;
+using VkPoster.Interfaces;
 
 namespace VkPoster.ViewModel
 {

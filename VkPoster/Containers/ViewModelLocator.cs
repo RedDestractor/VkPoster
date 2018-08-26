@@ -2,10 +2,13 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using System;
-using test.Interfaces;
-using test.Services;
+using VkPoster.Interfaces;
+using VkPoster.Services;
 using VkPoster.Model;
 using VkPoster.Service;
+using VkNet;
+using VkNet.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace VkPoster.ViewModel
 {
@@ -26,10 +29,11 @@ namespace VkPoster.ViewModel
 
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<HomeViewModel>();
-            SimpleIoc.Default.Register<WorkViewModel>();
-
+            SimpleIoc.Default.Register<GroupsSelectionViewModel>();
+            
             SetupNavigation();
 
+            SimpleIoc.Default.Register<IVkApiService, VkApiService>();
             SimpleIoc.Default.Register<IAuthService, AuthentificationService>();
         }
 
@@ -41,7 +45,7 @@ namespace VkPoster.ViewModel
         {
             var navigationService = new FrameNavigationService();
             navigationService.Configure("HomeView", new Uri("../View/HomeView.xaml", UriKind.Relative));
-            navigationService.Configure("WorkView", new Uri("../View/WorkView.xaml", UriKind.Relative));
+            navigationService.Configure("GroupsSelectionView", new Uri("../View/GroupsSelectionView.xaml", UriKind.Relative));
 
             SimpleIoc.Default.Register<IFrameNavigationService>(() => navigationService);
         }
@@ -62,11 +66,11 @@ namespace VkPoster.ViewModel
             }
         }
 
-        public WorkViewModel Work
+        public GroupsSelectionViewModel Work
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<WorkViewModel>();
+                return ServiceLocator.Current.GetInstance<GroupsSelectionViewModel>();
             }
         }
 

@@ -8,5 +8,6 @@ namespace VkPoster.ViewModel
     {
         void GetOauthPage(WebBrowser webBrowser);
         void DeleteCookie(Uri url);
+        bool Authentificate(string url);
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VkPoster.Constants
 {
-    public class PrivateInfo
+    public static class PrivateInfo
     {
         public static string Token { get; set; }
     }

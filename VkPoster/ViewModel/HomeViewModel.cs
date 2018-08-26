@@ -2,7 +2,7 @@
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System.Windows.Input;
-using test.Interfaces;
+using VkPoster.Interfaces;
 using VkPoster.Model;
 
 namespace VkPoster.ViewModel
@@ -87,7 +87,7 @@ namespace VkPoster.ViewModel
                 return new RelayCommand(
                     () =>
                     {
-                        _navigationService.NavigateTo("WorkView");
+                        _navigationService.NavigateTo("GroupsSelectionView");
                     });
             }
         }
