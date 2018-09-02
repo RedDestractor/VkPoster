@@ -124,6 +124,9 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="Containers\ViewModelLocator.cs" />
     <Compile Include="ViewModel\GroupsSelectionViewModel.cs" />
+    <Compile Include="View\AdminGroupsSelectionView.xaml.cs">
+      <DependentUpon>AdminGroupsSelectionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
@@ -132,6 +135,10 @@
     </Compile>
     <Compile Include="Containers\VkApiSingleton.cs" />
     <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AdminGroupsSelectionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -9,6 +9,7 @@ using VkPoster.Service;
 using VkNet;
 using VkNet.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
+using VkPoster.View;
 
 namespace VkPoster.ViewModel
 {
@@ -30,7 +31,8 @@ namespace VkPoster.ViewModel
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<HomeViewModel>();
             SimpleIoc.Default.Register<GroupsSelectionViewModel>();
-            
+            SimpleIoc.Default.Register<AdminGroupsSelectionView>();
+
             SetupNavigation();
 
             SimpleIoc.Default.Register<IVkApiService, VkApiService>();
@@ -42,7 +44,7 @@ namespace VkPoster.ViewModel
             var navigationService = new FrameNavigationService();
             navigationService.Configure("HomeView", new Uri("../View/HomeView.xaml", UriKind.Relative));
             navigationService.Configure("GroupsSelectionView", new Uri("../View/GroupsSelectionView.xaml", UriKind.Relative));
-
+            navigationService.Configure("AdminGroupsSelectionView", new Uri("../View/AdminGroupsSelectionView.xaml", UriKind.Relative));
             SimpleIoc.Default.Register<IFrameNavigationService>(() => navigationService);
         }
 

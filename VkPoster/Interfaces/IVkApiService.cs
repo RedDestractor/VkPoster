@@ -11,6 +11,6 @@ namespace VkPoster.Interfaces
 {
     public interface IVkApiService
     {
-        List<GroupDto> GetGroups();
+        List<GroupDto> GetGroups(bool IsAdmin);
     }
 }

@@ -12,6 +12,8 @@ namespace VkPoster.Model
     {
         public BitmapImage Image { get; set; }
         public string Description { get; set; }
-        public string Name { get; internal set; }
+        public string Name { get; set; }
+        public bool IsSelected { get; set; }
+        public bool IsAdmin { get; set; }
     }
 }

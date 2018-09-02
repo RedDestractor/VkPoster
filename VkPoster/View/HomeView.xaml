@@ -4,15 +4,15 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
-      d:DesignHeight="500" d:DesignWidth="900"
+      d:DesignHeight="700" d:DesignWidth="700"
       Title="HomeView"
        DataContext="{Binding Home, Source={StaticResource Locator}}">
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="190*" />
-            <ColumnDefinition Width="502*"/>
-            <ColumnDefinition Width="207*" />
+            <ColumnDefinition Width="47*" />
+            <ColumnDefinition Width="256*"/>
+            <ColumnDefinition Width="47*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -25,10 +25,10 @@
         <TextBlock FontSize="36"
                    FontWeight="Bold"
                    Foreground="DodgerBlue"
-                   Text="      Welcome to VkPoster!"
-                   TextWrapping="Wrap" Grid.Row="0" Margin="9.6,0,207,0" RenderTransformOrigin="0.5,0.435" Grid.ColumnSpan="2" Grid.Column="1" />
+                   Text="Welcome to VkPoster!"
+                   TextWrapping="Wrap" Grid.Row="0" Margin="10.6,0,46.4,0" RenderTransformOrigin="0.5,0.435" Grid.Column="1" />
 
-        <TextBlock Margin="9.6,20,9.8,10" Grid.Row="1" TextWrapping="Wrap" 
+        <TextBlock Margin="10.6,20,10.4,10" Grid.Row="1" TextWrapping="Wrap" 
                    Text="The program allows you to select the groups which you are subscribed, so that VkPoster automatically post new from these groups in the group whose administrator you are." 
                    Grid.RowSpan="2"
                    FontSize="15"     
@@ -37,7 +37,7 @@
 
         <Button 
                    Command="{Binding ShowAuthentificationViewCommand}"
-                   Content="Connect" Grid.Row="4" Margin="9.6,2,9.8,2" Grid.Column="1" FontSize="25"
+                   Content="Connect" Grid.Row="4" Margin="10.6,2,10.4,2" Grid.Column="1" FontSize="25"
                    />
 
     </Grid>

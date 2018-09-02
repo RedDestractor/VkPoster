@@ -7,30 +7,33 @@ using VkPoster.Model;
 using VkNet.Model;
 using VkNet.Utils;
 using System.Collections.Generic;
+using System.Windows.Media.Imaging;
+using System.Collections.ObjectModel;
 
 namespace VkPoster.ViewModel
 {
     public class GroupsSelectionViewModel : ViewModelBase
     {
-        private readonly IDataService _dataService;
-        private readonly IFrameNavigationService _navigationService;
-        private readonly IVkApiService _vkApiService;
-
         public const string WelcomeTitlePropertyName = "Vk Poster";
 
-        private string welcomeTitle = string.Empty;
-        private object selectedViewModel;
-        private List<GroupDto> groups;
+        private readonly IDataService _dataService;
+        private readonly IFrameNavigationService _navigationService;
+        private readonly IVkApiService _vkApiService;       
+
+        private string _welcomeTitle = string.Empty;
+        private object _selectedViewModel;
+        private ObservableCollection<GroupDto> _groups;
+        private ObservableCollection<GroupDto> _adminGroups;
 
         public string WelcomeTitle
         {
             get
             {
-                return welcomeTitle;
+                return _welcomeTitle;
             }
             set
             {
-                Set(ref welcomeTitle, value);
+                Set(ref _welcomeTitle, value);
             }
         }
 
@@ -38,24 +41,36 @@ namespace VkPoster.ViewModel
         {
             get
             {
-                return selectedViewModel;
+                return _selectedViewModel;
             }
             set
             {
-                selectedViewModel = value;
+                _selectedViewModel = value;
                 RaisePropertyChanged(() => SelectedViewModel);
             }
         }
 
-        public List<GroupDto> GroupsCollection
+        public ObservableCollection<GroupDto> GroupsCollection
         {
             get
             {
-                return groups;
+                return _groups;
             }
             set
             {                
-                Set(ref groups, value);
+                Set(ref _groups, value);
+            }
+        }
+
+        public ObservableCollection<GroupDto> AdminGroupsCollection
+        {
+            get
+            {
+                return _adminGroups;
+            }
+            set
+            {
+                Set(ref _adminGroups, value);
             }
         }
 
@@ -74,7 +89,10 @@ namespace VkPoster.ViewModel
 
                     WelcomeTitle = item.Title;
                 });
-            GroupsCollection = _vkApiService.GetGroups();
+            var tmpGroups = _vkApiService.GetGroups(false);
+            var tmpAdminGroups = _vkApiService.GetGroups(true);
+            GroupsCollection = new ObservableCollection<GroupDto>(tmpGroups);
+            AdminGroupsCollection = new ObservableCollection<GroupDto>(tmpAdminGroups);
         }
 
         public RelayCommand HomeViewNavigationCommand
@@ -86,6 +104,17 @@ namespace VkPoster.ViewModel
                     {
                         _navigationService.NavigateTo("HomeView");
                     });
+            }
+        }
+
+        public RelayCommand AdminGroupsViewNavigationCommand
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    _navigationService.NavigateTo("AdminGroupsSelectionView");
+                });
             }
         }
     }

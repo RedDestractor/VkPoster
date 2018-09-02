@@ -1,7 +1,5 @@
-﻿using GalaSoft.MvvmLight.Messaging;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,14 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using VkPoster.Model;
-using VkPoster.ViewModel;
 
 namespace VkPoster.View
 {
-    public partial class GroupsSelectionView : Page
+    public partial class AdminGroupsSelectionView : Page
     {
-        public GroupsSelectionView()
+        public AdminGroupsSelectionView()
         {
             InitializeComponent();
         }
