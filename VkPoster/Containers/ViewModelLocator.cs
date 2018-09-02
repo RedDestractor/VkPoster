@@ -37,10 +37,6 @@ namespace VkPoster.ViewModel
             SimpleIoc.Default.Register<IAuthService, AuthentificationService>();
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
-            "CA1822:MarkMembersAsStatic",
-            Justification = "This non-static member is needed for data binding purposes.")]
-
         private static void SetupNavigation()
         {
             var navigationService = new FrameNavigationService();
@@ -66,7 +62,7 @@ namespace VkPoster.ViewModel
             }
         }
 
-        public GroupsSelectionViewModel Work
+        public GroupsSelectionViewModel Groups
         {
             get
             {

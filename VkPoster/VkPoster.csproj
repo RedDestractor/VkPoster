@@ -106,6 +106,7 @@
     </ApplicationDefinition>
     <Compile Include="Constants\PrivateInfo.cs" />
     <Compile Include="Design\DesignDataService.cs" />
+    <Compile Include="Helpers\DataContentHelper.cs" />
     <Compile Include="Interfaces\IFrameNavigationService.cs" />
     <Compile Include="Interfaces\IVkApiService.cs" />
     <Compile Include="MainWindow.xaml.cs">

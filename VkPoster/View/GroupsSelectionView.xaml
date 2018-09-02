@@ -8,37 +8,24 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="WorkPage"
-      DataContext="{Binding Path=Groups, Source={StaticResource Locator}}">
+      DataContext="{Binding Groups, Source={StaticResource Locator}}">
 
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Initialized" >
-            <i:InvokeCommandAction Command="{Binding OnLoadedGetGroupsCommand}"/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
-    
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
+        <ScrollViewer>
+            <ListBox Name="Groups">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding Path = Image}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
+        
         <Label Content="Select groups, to parse news from them"
                FontWeight="Bold"
                Grid.ColumnSpan="10" Margin="10,0"/>

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VkPoster.ViewModel;
 
 namespace VkPoster.View
 {
@@ -20,6 +21,9 @@ namespace VkPoster.View
         public GroupsSelectionView()
         {
             InitializeComponent();
+            var context = (GroupsSelectionViewModel)DataContext;
+            var groupsModel = context.GroupsCollection;
+            Groups.DataContext = groupsModel;
         }
     }
 }

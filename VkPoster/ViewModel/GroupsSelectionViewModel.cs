@@ -20,8 +20,7 @@ namespace VkPoster.ViewModel
 
         private string welcomeTitle = string.Empty;
         private object selectedViewModel;
-
-        public List<GroupDto> Groups;
+        private List<GroupDto> groups;
 
         public string WelcomeTitle
         {
@@ -48,6 +47,17 @@ namespace VkPoster.ViewModel
             }
         }
 
+        public List<GroupDto> GroupsCollection
+        {
+            get
+            {
+                return groups;
+            }
+            set
+            {                
+                Set(ref groups, value);
+            }
+        }
 
         public GroupsSelectionViewModel(IDataService dataService, IFrameNavigationService navigationService, IVkApiService vkApiService)
         {
@@ -64,6 +74,7 @@ namespace VkPoster.ViewModel
 
                     WelcomeTitle = item.Title;
                 });
+            GroupsCollection = _vkApiService.GetGroups();
         }
 
         public RelayCommand HomeViewNavigationCommand
@@ -74,18 +85,6 @@ namespace VkPoster.ViewModel
                     () =>
                     {
                         _navigationService.NavigateTo("HomeView");
-                    });
-            }
-        }
-
-        public RelayCommand OnLoadedGetGroupsCommand
-        {
-            get
-            {
-                return new RelayCommand(
-                    () =>
-                    {
-                        Groups = _vkApiService.GetGroups();
                     });
             }
         }
