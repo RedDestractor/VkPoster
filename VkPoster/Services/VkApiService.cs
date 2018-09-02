@@ -14,17 +14,17 @@ namespace VkPoster.Services
 {
     public class VkApiService : IVkApiService
     {
-        public List<GroupDto> GetGroups(bool IsAdmin)
+        public List<GroupDto> GetGroups(bool IsAdminOnly = false)
         {
             var vkApi = VkApiSingleton.GetIntance;
             var groupsDtoList = new List<GroupDto>();
 
             VkCollection<Group> groups;
-            if (IsAdmin)
+            if (IsAdminOnly)
                 groups = vkApi.Groups.Get(new GroupsGetParams() { Extended = true, Filter = GroupsFilters.Administrator, Fields = GroupsFields.All });
             else
             {
-                groups = vkApi.Groups.Get(new GroupsGetParams() { Extended = true, Filter = GroupsFilters.All, Fields = GroupsFields.All });
+                groups = vkApi.Groups.Get(new GroupsGetParams() { Extended = true, Filter = GroupsFilters.Publics, Fields = GroupsFields.All });
 
             }
 

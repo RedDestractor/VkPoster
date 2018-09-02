@@ -89,7 +89,7 @@ namespace VkPoster.ViewModel
 
                     WelcomeTitle = item.Title;
                 });
-            var tmpGroups = _vkApiService.GetGroups(false);
+            var tmpGroups = _vkApiService.GetGroups();
             var tmpAdminGroups = _vkApiService.GetGroups(true);
             GroupsCollection = new ObservableCollection<GroupDto>(tmpGroups);
             AdminGroupsCollection = new ObservableCollection<GroupDto>(tmpAdminGroups);
