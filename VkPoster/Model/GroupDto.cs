@@ -10,6 +10,7 @@ namespace VkPoster.Model
 {
     public class GroupDto
     {
+        public long Id { get; set; }
         public BitmapImage Image { get; set; }
         public string Description { get; set; }
         public string Name { get; set; }

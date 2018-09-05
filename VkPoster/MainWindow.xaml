@@ -8,8 +8,8 @@
         xmlns:ignore="http://www.galasoft.ch/ignore"
         xmlns:command="http://www.galasoft.ch/mvvmlight"
         mc:Ignorable="d"
-        Height="600"
-        Width="700"
+        Height="700"
+        Width="500"
         Title="VkPoster"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
     

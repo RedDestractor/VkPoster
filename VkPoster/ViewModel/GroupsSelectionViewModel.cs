@@ -9,6 +9,7 @@ using VkNet.Utils;
 using System.Collections.Generic;
 using System.Windows.Media.Imaging;
 using System.Collections.ObjectModel;
+using VkPoster.Helpers;
 
 namespace VkPoster.ViewModel
 {
@@ -18,7 +19,7 @@ namespace VkPoster.ViewModel
 
         private readonly IDataService _dataService;
         private readonly IFrameNavigationService _navigationService;
-        private readonly IVkApiService _vkApiService;       
+        private readonly VkApiWorker _vkApi;
 
         private string _welcomeTitle = string.Empty;
         private object _selectedViewModel;
@@ -59,6 +60,8 @@ namespace VkPoster.ViewModel
             set
             {                
                 Set(ref _groups, value);
+                //Set(ref _vkApi.groupsToGetPosts, value);
+                //_vkApi.SetGroupsToGetPosts();
             }
         }
 
@@ -71,14 +74,15 @@ namespace VkPoster.ViewModel
             set
             {
                 Set(ref _adminGroups, value);
+                //_vkApi.SetAdminGroupsToPost();
             }
         }
 
-        public GroupsSelectionViewModel(IDataService dataService, IFrameNavigationService navigationService, IVkApiService vkApiService)
+        public GroupsSelectionViewModel(IDataService dataService, IFrameNavigationService navigationService)
         {
+            _vkApi = new VkApiWorker(this);
             _navigationService = navigationService;
             _dataService = dataService;
-            _vkApiService = vkApiService;
             _dataService.GetData(
                 (item, error) =>
                 {
@@ -89,8 +93,8 @@ namespace VkPoster.ViewModel
 
                     WelcomeTitle = item.Title;
                 });
-            var tmpGroups = _vkApiService.GetGroups();
-            var tmpAdminGroups = _vkApiService.GetGroups(true);
+            var tmpGroups = _vkApi.GetGroups();
+            var tmpAdminGroups = _vkApi.GetGroups(true);
             GroupsCollection = new ObservableCollection<GroupDto>(tmpGroups);
             AdminGroupsCollection = new ObservableCollection<GroupDto>(tmpAdminGroups);
         }
@@ -114,6 +118,28 @@ namespace VkPoster.ViewModel
                 return new RelayCommand(() =>
                 {
                     _navigationService.NavigateTo("AdminGroupsSelectionView");
+                });
+            }
+        }
+
+        public RelayCommand SetTimeViewNavigateComand
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    _navigationService.NavigateTo("SetTimeView");
+                });
+            }
+        }
+
+        public RelayCommand ProgressViewNavigationCommand
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    _navigationService.NavigateTo("ProgressView");
                 });
             }
         }

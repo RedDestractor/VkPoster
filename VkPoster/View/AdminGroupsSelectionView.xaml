@@ -27,11 +27,11 @@
             <ListBox Name="Groups"
                      ItemsSource="{Binding AdminGroupsCollection, Mode=TwoWay}"
                      AlternationCount="2"
-                     SelectionMode="Multiple">
+                     SelectionMode="Single">
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="{x:Type ListBoxItem}">
-                        <Setter Property="Margin" Value="10"/>
-                        <Setter Property="Padding" Value="5"/>
+                        <Setter Property="Margin" Value="3"/>
+                        <Setter Property="Padding" Value="2"/>
                         <Setter Property="Background" Value="LightSteelBlue"/>
                         <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
                         <Setter Property="Template">
@@ -60,7 +60,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">
-                            <Label Content="{Binding Name}" FontSize="15" Margin="0,5,5,5" FontWeight="Heavy"/>
+                            <Label Content="{Binding Name}" FontSize="15" Margin="0,0,0,0" FontWeight="Heavy"/>
                             <Image Source="{Binding Image}" Width="100" Height="100" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </DataTemplate>
@@ -76,8 +76,8 @@
                FontWeight="ExtraBold"/>
 
         <Button 
-                   Command="{Binding GetSelectedGroupsAndNavigateComand}"
-                   Content="Next" Grid.Row="2" Margin="200,2,200,2" Grid.Column="1" FontSize="25" Background="LightSkyBlue"
+                   Command="{Binding SetTimeViewNavigateComand}"
+                   Content="Next" Grid.Row="2" Margin="100,2,100,2" Grid.Column="1" FontSize="25" Background="LightSkyBlue"
                    />
     </Grid>
 </Page>
