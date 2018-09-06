@@ -1,17 +1,13 @@
-﻿using CommonServiceLocator;
+﻿using System;
+using CommonServiceLocator;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
-using System;
 using VkPoster.Interfaces;
-using VkPoster.Services;
 using VkPoster.Model;
-using VkPoster.Service;
-using VkNet;
-using VkNet.Abstractions;
-using Microsoft.Extensions.DependencyInjection;
-using VkPoster.View;
+using VkPoster.Services;
+using VkPoster.ViewModel;
 
-namespace VkPoster.ViewModel
+namespace VkPoster.Containers
 {
     public class ViewModelLocator
     {
@@ -34,7 +30,7 @@ namespace VkPoster.ViewModel
 
             SetupNavigation();
 
-            SimpleIoc.Default.Register<IAuthService, AuthentificationService>();
+            SimpleIoc.Default.Register<IAuthService, AuthenticationService>();
         }
 
         private static void SetupNavigation()
@@ -48,29 +44,11 @@ namespace VkPoster.ViewModel
             SimpleIoc.Default.Register<IFrameNavigationService>(() => navigationService);
         }
 
-        public MainViewModel Main
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<MainViewModel>();
-            }
-        }
+        public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
 
-        public HomeViewModel Home
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<HomeViewModel>();
-            }
-        }
+        public HomeViewModel Home => ServiceLocator.Current.GetInstance<HomeViewModel>();
 
-        public GroupsSelectionViewModel Groups
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<GroupsSelectionViewModel>();
-            }
-        }
+        public GroupsSelectionViewModel Groups => ServiceLocator.Current.GetInstance<GroupsSelectionViewModel>();
 
         public static void Cleanup()
         {

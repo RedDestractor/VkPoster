@@ -4,8 +4,9 @@
              xmlns:vm="clr-namespace:VkPoster.ViewModel"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:ignore="http://www.galasoft.ch/ignore"
-             StartupUri="MainWindow.xaml"
+			 xmlns:ignore="http://www.galasoft.ch/ignore" 
+			 xmlns:containers="clr-namespace:VkPoster.Containers"
+			 StartupUri="MainWindow.xaml"
              mc:Ignorable="d ignore">
     
     <Application.Resources>
@@ -20,7 +21,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
                 <ResourceDictionary Source="/Skins/MainSkin.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <vm:ViewModelLocator x:Key="Locator"
+            <containers:ViewModelLocator x:Key="Locator"
                              d:IsDataSource="True" />
         </ResourceDictionary>
     </Application.Resources>

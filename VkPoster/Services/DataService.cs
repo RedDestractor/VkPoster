@@ -1,6 +1,8 @@
 ﻿using System;
+using VkPoster.Interfaces;
+using VkPoster.Model;
 
-namespace VkPoster.Model
+namespace VkPoster.Services
 {
     public class DataService : IDataService
     {

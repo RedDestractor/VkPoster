@@ -16,48 +16,30 @@ namespace VkPoster.ViewModel
 {
     public class GroupsSelectionViewModel : ViewModelBase
     {
-        public const string WelcomeTitlePropertyName = "Vk Poster";
-
-        private readonly IDataService _dataService;
         private readonly IFrameNavigationService _navigationService;
         private readonly VkApiWorker _vkApi;
 
         private string _welcomeTitle = string.Empty;
-        private int _timeforExecution;
+        private int _timeForExecution;
         private object _selectedViewModel;
         private ObservableCollection<GroupDto> _groups;
         private ObservableCollection<GroupDto> _adminGroups;
 
         public string WelcomeTitle
         {
-            get
-            {
-                return _welcomeTitle;
-            }
-            set
-            {
-                Set(ref _welcomeTitle, value);
-            }
+            get => _welcomeTitle;
+            set => Set(ref _welcomeTitle, value);
         }
 
         public int TimeForExecution
         {
-            get
-            {
-                return _timeforExecution;
-            }
-            set
-            {
-                Set(ref _timeforExecution, value);
-            }
+            get => _timeForExecution;
+            set => Set(ref _timeForExecution, value);
         }
 
         public object SelectedViewModel
         {
-            get
-            {
-                return _selectedViewModel;
-            }
+            get => _selectedViewModel;
             set
             {
                 _selectedViewModel = value;
@@ -67,34 +49,21 @@ namespace VkPoster.ViewModel
 
         public ObservableCollection<GroupDto> GroupsCollection
         {
-            get
-            {
-                return _groups;
-            }
-            set
-            {                
-                Set(ref _groups, value);
-            }
+            get => _groups;
+            set => Set(ref _groups, value);
         }
 
         public ObservableCollection<GroupDto> AdminGroupsCollection
         {
-            get
-            {
-                return _adminGroups;
-            }
-            set
-            {
-                Set(ref _adminGroups, value);
-            }
+            get => _adminGroups;
+            set => Set(ref _adminGroups, value);
         }
 
         public GroupsSelectionViewModel(IDataService dataService, IFrameNavigationService navigationService)
         {
             _vkApi = new VkApiWorker(this);
             _navigationService = navigationService;
-            _dataService = dataService;
-            _dataService.GetData(
+            dataService.GetData(
                 (item, error) =>
                 {
                     if (error != null)
@@ -111,18 +80,6 @@ namespace VkPoster.ViewModel
             TimeForExecution = 15; 
         }
 
-        public RelayCommand HomeViewNavigationCommand
-        {
-            get
-            {
-                return new RelayCommand(
-                    () =>
-                    {
-                        _navigationService.NavigateTo("HomeView");
-                    });
-            }
-        }
-
         public RelayCommand AdminGroupsViewNavigationCommand
         {
             get
@@ -135,7 +92,7 @@ namespace VkPoster.ViewModel
             }
         }
 
-        public RelayCommand SetTimeViewNavigateComand
+        public RelayCommand SetTimeViewNavigateCommand
         {
             get
             {

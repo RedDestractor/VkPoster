@@ -9,35 +9,36 @@ namespace VkPoster.ViewModel
 {
     public class HomeViewModel : ViewModelBase
     {
-        private readonly IDataService _dataService;
         private readonly IFrameNavigationService _navigationService;
-
-        public const string WelcomeTitlePropertyName = "Vk Poster";
-
-        private string welcomeTitle = string.Empty;
-        private object selectedViewModel;        
+        private string _welcomeTitle = string.Empty;
+        private string _login = "LOGIN";
+        private string _password = "PASSWORD";
+        private object _selectedViewModel;        
 
         public string WelcomeTitle
         {
-            get
-            {
-                return welcomeTitle;
-            }
-            set
-            {
-                Set(ref welcomeTitle, value);
-            }
+            get => _welcomeTitle;
+            set => Set(ref _welcomeTitle, value);
         }
-        
+
+        public string Login
+        {
+            get => _login;
+            set => Set(ref _login, value);
+        }
+
+        public string Password
+        {
+            get => _password;
+            set => Set(ref _password, value);
+        }
+
         public object SelectedViewModel
         {
-            get
-            {
-                return selectedViewModel;
-            }
+            get => _selectedViewModel;
             set
             {
-                selectedViewModel = value;
+                _selectedViewModel = value;
                 RaisePropertyChanged(() => SelectedViewModel);
             }
         }
@@ -45,8 +46,7 @@ namespace VkPoster.ViewModel
         public HomeViewModel(IDataService dataService, IFrameNavigationService navigationService)
         {
             _navigationService = navigationService;
-            _dataService = dataService;
-            _dataService.GetData(
+            dataService.GetData(
                 (item, error) =>
                 {
                     if (error != null)
@@ -58,18 +58,18 @@ namespace VkPoster.ViewModel
                 });
         }
 
-        public RelayCommand ShowAuthentificationViewCommand
+        public RelayCommand ShowAuthenticationViewCommand
         {
             get
             {
                 return new RelayCommand(() =>
                 {
-                    Messenger.Default.Send(new NotificationMessage("ConnetToVk"));
+                    Messenger.Default.Send(new NotificationMessage("ConnectToVk"));
                 });
             }
         }
 
-        public RelayCommand CloseAuthentificationViewCommand
+        public RelayCommand CloseAuthenticationViewCommand
         {
             get
             {

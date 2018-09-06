@@ -106,7 +106,6 @@
     </ApplicationDefinition>
     <Compile Include="Constants\PrivateInfo.cs" />
     <Compile Include="Design\DesignDataService.cs" />
-    <Compile Include="Helpers\DataContentHelper.cs" />
     <Compile Include="Interfaces\IFrameNavigationService.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -125,6 +124,9 @@
     <Compile Include="ViewModel\GroupsSelectionViewModel.cs" />
     <Compile Include="View\AdminGroupsSelectionView.xaml.cs">
       <DependentUpon>AdminGroupsSelectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AuthenticationLoginView.xaml.cs">
+      <DependentUpon>AuthenticationLoginView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
@@ -147,7 +149,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\AuthentificationView.xaml">
+    <Page Include="View\AuthenticationLoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AuthenticationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -159,8 +165,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="View\AuthentificationView.xaml.cs">
-      <DependentUpon>AuthentificationView.xaml</DependentUpon>
+    <Compile Include="View\AuthenticationView.xaml.cs">
+      <DependentUpon>AuthenticationView.xaml</DependentUpon>
     </Compile>
     <Page Include="Skins\MainSkin.xaml">
       <Generator>MSBuild:Compile</Generator>

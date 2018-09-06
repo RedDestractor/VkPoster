@@ -11,7 +11,6 @@ namespace VkPoster.Model
         public string Title
         {
             get;
-            private set;
         }
 
         public DataItem(string title)

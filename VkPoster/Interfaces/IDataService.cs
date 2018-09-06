@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using VkPoster.Model;
 
-namespace VkPoster.Model
+namespace VkPoster.Interfaces
 {
     public interface IDataService
     {

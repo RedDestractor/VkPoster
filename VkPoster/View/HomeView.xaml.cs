@@ -5,7 +5,7 @@ namespace VkPoster.View
 {
     public partial class HomeView : Page
     {
-        AuthentificationView authentificationView;
+        AuthenticationView _authenticationView;
 
         public HomeView()
         {
@@ -16,15 +16,15 @@ namespace VkPoster.View
 
         private void NotificationMessageReceived(NotificationMessage message)
         {
-            if (message.Notification == "ConnetToVk")
+            if (message.Notification == "ConnectToVk")
             {
-                authentificationView = new AuthentificationView();
+                _authenticationView = new AuthenticationView();
 
-                authentificationView.Show();
+                _authenticationView.Show();
             }
             if (message.Notification == "ConnectionToVkFinished")
             {
-                authentificationView.Close();
+                _authenticationView.Close();
             }
         }
     }

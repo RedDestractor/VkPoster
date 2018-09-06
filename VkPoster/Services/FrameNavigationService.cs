@@ -20,10 +20,7 @@ namespace VkPoster.Services
                                         
         public string CurrentPageKey
         {
-            get
-            {
-                return _currentPageKey;
-            }
+            get => _currentPageKey;
 
             private set
             {
@@ -62,15 +59,14 @@ namespace VkPoster.Services
             {
                 if (!_pagesByKey.ContainsKey(pageKey))
                 {
-                    throw new ArgumentException(string.Format("No such page: {0} ", pageKey), "pageKey");
+                    throw new ArgumentException($@"No such page: {pageKey} ", nameof(pageKey));
                 }
 
-                var frame = GetDescendantFromName(Application.Current.MainWindow, "MainFrame") as Frame;
-
-                if (frame != null)
+                if (GetDescendantFromName(Application.Current.MainWindow, "MainFrame") is Frame frame)
                 {
                     frame.Source = _pagesByKey[pageKey];
                 }
+
                 Parameter = parameter;
                 _historic.Add(pageKey);
                 CurrentPageKey = pageKey;
@@ -103,19 +99,16 @@ namespace VkPoster.Services
 
             for (var i = 0; i < count; i++)
             {
-                var frameworkElement = VisualTreeHelper.GetChild(parent, i) as FrameworkElement;
+                if (!(VisualTreeHelper.GetChild(parent, i) is FrameworkElement frameworkElement)) continue;
+                if (frameworkElement.Name == name)
+                {
+                    return frameworkElement;
+                }
+
+                frameworkElement = GetDescendantFromName(frameworkElement, name);
                 if (frameworkElement != null)
                 {
-                    if (frameworkElement.Name == name)
-                    {
-                        return frameworkElement;
-                    }
-
-                    frameworkElement = GetDescendantFromName(frameworkElement, name);
-                    if (frameworkElement != null)
-                    {
-                        return frameworkElement;
-                    }
+                    return frameworkElement;
                 }
             }
             return null;
@@ -125,8 +118,8 @@ namespace VkPoster.Services
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+            var handler = PropertyChanged;
+            handler?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

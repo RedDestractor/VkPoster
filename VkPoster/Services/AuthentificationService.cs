@@ -1,84 +1,75 @@
-﻿using GalaSoft.MvvmLight.Ioc;
-using System;
+﻿using System;
 using System.Web;
 using System.Windows.Controls;
 using VkNet;
-using VkNet.Abstractions;
 using VkNet.Enums.Filters;
 using VkNet.Model;
 using VkPoster.Constants;
-using VkPoster.ViewModel;
-using VkPoster.VkApiHelpers;
+using VkPoster.Containers;
+using VkPoster.Interfaces;
 
-namespace VkPoster.Service
+namespace VkPoster.Services
 {
-    public class AuthentificationService : IAuthService
+    public class AuthenticationService : IAuthService
     {
         private const string AppId = "6495092";
         private const string Scope = "wall,offline,groups,photos,manage";
 
-        private static readonly VkApi VkApi = VkApiSingleton.GetIntance;
+        private static readonly VkApi VkApi = VkApiSingleton.GetInstance;
 
         public void GetOauthPage(WebBrowser webBrowser)
         {
-            var url = "https://oauth.vk.com/authorize?client_id=" + AppId + "&scope" + Scope +
-                      "redirect_uri=https://oauth.vk.com/blank.html&response_type=token";
-
-            webBrowser.Navigate(url);
+            webBrowser.Navigate("https://oauth.vk.com/authorize?client_id=" + AppId + "&scope" + Scope +
+                               "redirect_uri=https://oauth.vk.com/blank.html&response_type=token");
         }
 
-        public bool Authentificate(string url)
+        public bool Authenticate(string url)
         {
-            if (url.Contains("access_token") && url.Contains("#"))
-            {
-                url = (new System.Text.RegularExpressions.Regex("#")).Replace(url, "?", 1);
-                PrivateInfo.Token = HttpUtility.ParseQueryString(url).Get("access_token");
+            if (!url.Contains("access_token") || !url.Contains("#")) return false;
+            url = (new System.Text.RegularExpressions.Regex("#")).Replace(url, "?", 1);
+            PrivateInfo.Token = HttpUtility.ParseQueryString(url).Get("access_token");
 
-                VkApi.Authorize(new ApiAuthParams
-                {
-                    ApplicationId = 6495092,
-                    Login = "",
-                    Password = "",
-                    Settings = Settings.All,
-                });
-                return true;
-            }
-            return false;
+            VkApi.Authorize(new ApiAuthParams
+            {
+                ApplicationId = 6495092,
+                AccessToken = PrivateInfo.Token,
+                Settings = Settings.Offline
+            });
+            return true;
         }
 
         public void DeleteCookie(Uri url)
         {
-            string cookie = string.Empty;
+            var cookie = string.Empty;
             try
             {
                 cookie = System.Windows.Application.GetCookie(url);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
+                // ignored
             }
-            if (!string.IsNullOrEmpty(cookie))
+
+            if (string.IsNullOrEmpty(cookie)) return;
+            var values = cookie.Split(';');
+            foreach (var s in values)
             {
-                var values = cookie.Split(';');
-                foreach (var s in values)
+                if (s.IndexOf('=') > 0)
                 {
-                    if (s.IndexOf('=') > 0)
-                    {
-                        DeleteSingleCookie(s.Substring(0, s.IndexOf('=')).Trim(), url);
-                    }
+                    DeleteSingleCookie(s.Substring(0, s.IndexOf('=')).Trim(), url);
                 }
             }
         }
 
-        private void DeleteSingleCookie(string name, Uri url)
+        private static void DeleteSingleCookie(string name, Uri url)
         {
             try
             {
                 var expiration = DateTime.UtcNow - TimeSpan.FromDays(1);
-                string cookie = String.Format("{0}=; expires={1}; path=/; domain=.vk.com", name, expiration.ToString("R"));
+                var cookie = $"{name}=; expires={expiration:R}; path=/; domain=.vk.com";
                 System.Windows.Application.SetCookie(url, cookie);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }

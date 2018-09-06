@@ -1,0 +1,47 @@
+﻿<Page x:Class="VkPoster.View.AuthenticationLoginView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:VkPoster.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="700"
+      Title="Authenticate"
+      DataContext="{Binding Home, Source={StaticResource Locator}}">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="180*" />
+            <ColumnDefinition Width="339*"/>
+            <ColumnDefinition Width="180*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="139*" />
+            <RowDefinition Height="69*"/>
+            <RowDefinition Height="69*"/>
+            <RowDefinition Height="69*"/>
+            <RowDefinition Height="253*"/>
+            <RowDefinition Height="101*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock FontSize="36"
+                   FontWeight="Bold"
+                   Foreground="DodgerBlue"
+                   Text="Authentication"
+                   TextWrapping="Wrap" Grid.Row="0" Margin="11,0,46,0" RenderTransformOrigin="0.5,0.435" Grid.Column="1" />
+
+        <TextBox Margin="10,8,10,10" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Login}" FontSize="40"
+                 
+        />
+
+        <TextBox Margin="10,8,10,10" Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Password}" FontSize="40"
+                 
+        />
+
+        <Button 
+            Command="{Binding ShowAuthenticationViewCommand}"
+            Content="NEXT" Grid.Row="5" Margin="11,10,10,2" Grid.Column="1" FontSize="25"
+        />
+
+    </Grid>
+</Page>

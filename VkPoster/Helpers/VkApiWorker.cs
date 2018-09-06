@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using VkPoster.Interfaces;
-using VkPoster.VkApiHelpers;
 using VkPoster.Model;
 using VkNet.Enums.Filters;
 using VkNet.Model.RequestParams;
@@ -15,37 +14,34 @@ using GalaSoft.MvvmLight.Ioc;
 using VkPoster.ViewModel;
 using GalaSoft.MvvmLight;
 using VkNet.Model.Attachments;
+using VkPoster.Containers;
 
 namespace VkPoster.Helpers
 {
     public class VkApiWorker
     {
-        private VkApi vkApi;
+        private readonly VkApi _vkApi;
 
         public Queue<GroupDto> GroupsToGetPosts { get; set; }
         public GroupDto AdminGroupToPost { get; set; }
 
         public VkApiWorker(GroupsSelectionViewModel ctx)
         {
-            vkApi = VkApiSingleton.GetIntance;
+            _vkApi = VkApiSingleton.GetInstance;
         }
 
-        public List<GroupDto> GetGroups(bool IsAdminOnly = false)
+        public List<GroupDto> GetGroups(bool isAdminOnly = false)
         {            
             var groupsDtoList = new List<GroupDto>();
 
-            VkCollection<Group> groups;
-            if (IsAdminOnly)
-                groups = vkApi.Groups.Get(new GroupsGetParams() { Extended = true, Filter = GroupsFilters.Administrator, Fields = GroupsFields.All });
-            else
-                groups = vkApi.Groups.Get(new GroupsGetParams() { Extended = true, Filter = GroupsFilters.Publics, Fields = GroupsFields.All });
-
+            var groups = isAdminOnly
+                ? _vkApi.Groups.Get(new GroupsGetParams() { Extended = true, Filter = GroupsFilters.Administrator, Fields = GroupsFields.All })
+                : _vkApi.Groups.Get(new GroupsGetParams() { Extended = true, Filter = GroupsFilters.Publics, Fields = GroupsFields.All });
             foreach (var group in groups)
             {
-                var groupDto = new GroupDto();
-                groupDto.Name = group.Name;
+                var groupDto = new GroupDto {Name = @group.Name};
 
-                BitmapImage src = new BitmapImage();
+                var src = new BitmapImage();
                 src.BeginInit();
                 src.UriSource = group.Photo200;
                 src.CacheOption = BitmapCacheOption.OnLoad;
@@ -65,14 +61,14 @@ namespace VkPoster.Helpers
         {
             var post = GetPost();
 
-            List<MediaAttachment> attachments = new List<MediaAttachment>();
+            var attachments = new List<MediaAttachment>();
 
             foreach(var source in post.Attachments)
             {
                 attachments.Add(source.Instance as MediaAttachment);
             }
 
-            vkApi.Wall.Post(new WallPostParams()
+            _vkApi.Wall.Post(new WallPostParams()
             {
                 OwnerId = -AdminGroupToPost.Id,
                 //Attachments = attachments
@@ -84,7 +80,7 @@ namespace VkPoster.Helpers
         {
             var groupToGetPost = GroupsToGetPosts.Dequeue();
 
-            var groupData = vkApi.Wall.Get(new WallGetParams
+            var groupData = _vkApi.Wall.Get(new WallGetParams
             {
                 OwnerId = -groupToGetPost.Id,
                 Count = 10,

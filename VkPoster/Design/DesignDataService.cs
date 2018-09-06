@@ -1,4 +1,5 @@
 ﻿using System;
+using VkPoster.Interfaces;
 using VkPoster.Model;
 
 namespace VkPoster.Design

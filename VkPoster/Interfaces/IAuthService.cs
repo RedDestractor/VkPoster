@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Windows.Controls;
-using VkPoster.Model;
 
-namespace VkPoster.ViewModel
+namespace VkPoster.Interfaces
 {
     public interface IAuthService
     {
         void GetOauthPage(WebBrowser webBrowser);
         void DeleteCookie(Uri url);
-        bool Authentificate(string url);
+        bool Authenticate(string url);
     }
 }
