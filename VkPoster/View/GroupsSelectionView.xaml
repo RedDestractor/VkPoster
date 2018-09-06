@@ -40,7 +40,7 @@
                                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
                                     <Border x:Name="brd" Background="{TemplateBinding Background}" 
                                             BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                                        <CheckBox Focusable="False" Margin="{TemplateBinding Padding}" Foreground="{TemplateBinding Foreground}"
+                                        <CheckBox Name="CheckBox" Focusable="False" Margin="{TemplateBinding Padding}" Foreground="{TemplateBinding Foreground}"
                                                      IsChecked="{Binding Path=IsSelected, RelativeSource={RelativeSource TemplatedParent},Mode=TwoWay}">
                                             <ContentPresenter/>
                                         </CheckBox>
@@ -79,6 +79,7 @@
         <Button 
                    Command="{Binding AdminGroupsViewNavigationCommand}"
                    Content="Next" Grid.Row="2" Margin="100,0,100,0" Grid.Column="1" FontSize="25" Background="LightSkyBlue"
-                   />
+                   IsEnabled="{Binding ElementName=Groups, Path=SelectedItems.Count}">
+        </Button>
     </Grid>
 </Page>

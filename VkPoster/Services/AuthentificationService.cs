@@ -4,6 +4,7 @@ using System.Web;
 using System.Windows.Controls;
 using VkNet;
 using VkNet.Abstractions;
+using VkNet.Enums.Filters;
 using VkNet.Model;
 using VkPoster.Constants;
 using VkPoster.ViewModel;
@@ -14,14 +15,14 @@ namespace VkPoster.Service
     public class AuthentificationService : IAuthService
     {
         private const string AppId = "6495092";
-        private const string Scope = "270336";
+        private const string Scope = "wall,offline,groups,photos,manage";
 
         private static readonly VkApi VkApi = VkApiSingleton.GetIntance;
 
         public void GetOauthPage(WebBrowser webBrowser)
         {
             var url = "https://oauth.vk.com/authorize?client_id=" + AppId + "&scope" + Scope +
-                      "redirect_uri=https://oauth.vk.com/blank.html&display=popup&response_type=token";
+                      "redirect_uri=https://oauth.vk.com/blank.html&response_type=token";
 
             webBrowser.Navigate(url);
         }
@@ -35,7 +36,10 @@ namespace VkPoster.Service
 
                 VkApi.Authorize(new ApiAuthParams
                 {
-                    AccessToken = PrivateInfo.Token
+                    ApplicationId = 6495092,
+                    Login = "",
+                    Password = "",
+                    Settings = Settings.All,
                 });
                 return true;
             }

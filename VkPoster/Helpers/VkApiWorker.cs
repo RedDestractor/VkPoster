@@ -14,25 +14,20 @@ using VkNet;
 using GalaSoft.MvvmLight.Ioc;
 using VkPoster.ViewModel;
 using GalaSoft.MvvmLight;
+using VkNet.Model.Attachments;
 
 namespace VkPoster.Helpers
 {
-    //TODO
-    //set propertie from another class when propertie changed mvvm C#
-    //https://stackoverflow.com/questions/19902329/how-to-set-a-onpropertychanged-method-from-another-class
-
     public class VkApiWorker
     {
         private VkApi vkApi;
-        private GroupsSelectionViewModel context;
 
-        public Queue<GroupDto> groupsToGetPosts;
-        public Queue<GroupDto> adminGroupsToPost;
+        public Queue<GroupDto> GroupsToGetPosts { get; set; }
+        public GroupDto AdminGroupToPost { get; set; }
 
         public VkApiWorker(GroupsSelectionViewModel ctx)
         {
             vkApi = VkApiSingleton.GetIntance;
-            context = ctx;
         }
 
         public List<GroupDto> GetGroups(bool IsAdminOnly = false)
@@ -66,29 +61,41 @@ namespace VkPoster.Helpers
             return groupsDtoList;
         }
 
-        //public void SetGroupsToGetPosts()
-        //{
-        //    GroupsToGetPosts = new Queue<GroupDto>(context.GroupsCollection.Where(x => x.IsSelected == true));
-        //}
-        //public void SetAdminGroupsToPost()
-        //{
-        //    AdminGroupsToPost = new Queue<GroupDto>(context.AdminGroupsCollection.Where(x => x.IsSelected == true));
-        //}
+        public void SetPostToAdminGroup()
+        {
+            var post = GetPost();
 
-        //public WallGetObject GetPost()
-        //{
-            //var groupToGetPost = GroupsToGetPosts.Dequeue();
+            List<MediaAttachment> attachments = new List<MediaAttachment>();
 
-            //var groupData = vkApi.Wall.Get(new WallGetParams
-            //{
-            //    OwnerId = groupToGetPost.Id,
-            //    Count = 10,
-            //    Extended = true            
-            //});
+            foreach(var source in post.Attachments)
+            {
+                attachments.Add(source.Instance as MediaAttachment);
+            }
 
-            //GroupsToGetPosts.Enqueue(groupToGetPost);
+            vkApi.Wall.Post(new WallPostParams()
+            {
+                OwnerId = -AdminGroupToPost.Id,
+                //Attachments = attachments
+                Message = post.Text
+            });
+        }
 
-        //    return groupData;
-        //}        
+        private Post GetPost()
+        {
+            var groupToGetPost = GroupsToGetPosts.Dequeue();
+
+            var groupData = vkApi.Wall.Get(new WallGetParams
+            {
+                OwnerId = -groupToGetPost.Id,
+                Count = 10,
+                Extended = true
+            }).WallPosts;
+
+            var post = groupData.FirstOrDefault();
+
+            GroupsToGetPosts.Enqueue(groupToGetPost);
+
+            return post;
+        }        
     }
 }

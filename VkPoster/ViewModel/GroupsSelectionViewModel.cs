@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Windows.Media.Imaging;
 using System.Collections.ObjectModel;
 using VkPoster.Helpers;
+using System.Linq;
 
 namespace VkPoster.ViewModel
 {
@@ -22,6 +23,7 @@ namespace VkPoster.ViewModel
         private readonly VkApiWorker _vkApi;
 
         private string _welcomeTitle = string.Empty;
+        private int _timeforExecution;
         private object _selectedViewModel;
         private ObservableCollection<GroupDto> _groups;
         private ObservableCollection<GroupDto> _adminGroups;
@@ -35,6 +37,18 @@ namespace VkPoster.ViewModel
             set
             {
                 Set(ref _welcomeTitle, value);
+            }
+        }
+
+        public int TimeForExecution
+        {
+            get
+            {
+                return _timeforExecution;
+            }
+            set
+            {
+                Set(ref _timeforExecution, value);
             }
         }
 
@@ -60,8 +74,6 @@ namespace VkPoster.ViewModel
             set
             {                
                 Set(ref _groups, value);
-                //Set(ref _vkApi.groupsToGetPosts, value);
-                //_vkApi.SetGroupsToGetPosts();
             }
         }
 
@@ -74,7 +86,6 @@ namespace VkPoster.ViewModel
             set
             {
                 Set(ref _adminGroups, value);
-                //_vkApi.SetAdminGroupsToPost();
             }
         }
 
@@ -97,6 +108,7 @@ namespace VkPoster.ViewModel
             var tmpAdminGroups = _vkApi.GetGroups(true);
             GroupsCollection = new ObservableCollection<GroupDto>(tmpGroups);
             AdminGroupsCollection = new ObservableCollection<GroupDto>(tmpAdminGroups);
+            TimeForExecution = 15; 
         }
 
         public RelayCommand HomeViewNavigationCommand
@@ -118,6 +130,7 @@ namespace VkPoster.ViewModel
                 return new RelayCommand(() =>
                 {
                     _navigationService.NavigateTo("AdminGroupsSelectionView");
+                    _vkApi.GroupsToGetPosts = new Queue<GroupDto>(GroupsCollection.Where(x => x.IsSelected == true));
                 });
             }
         }
@@ -129,6 +142,7 @@ namespace VkPoster.ViewModel
                 return new RelayCommand(() =>
                 {
                     _navigationService.NavigateTo("SetTimeView");
+                    _vkApi.AdminGroupToPost = AdminGroupsCollection.FirstOrDefault(x => x.IsSelected == true);
                 });
             }
         }
@@ -140,6 +154,17 @@ namespace VkPoster.ViewModel
                 return new RelayCommand(() =>
                 {
                     _navigationService.NavigateTo("ProgressView");
+                });
+            }
+        }
+
+        public RelayCommand SetPostToAdminGroup
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    _vkApi.SetPostToAdminGroup();
                 });
             }
         }

@@ -78,6 +78,7 @@
         <Button 
                    Command="{Binding SetTimeViewNavigateComand}"
                    Content="Next" Grid.Row="2" Margin="100,2,100,2" Grid.Column="1" FontSize="25" Background="LightSkyBlue"
+                   IsEnabled="{Binding ElementName=Groups, Path=SelectedItems.Count}"
                    />
     </Grid>
 </Page>

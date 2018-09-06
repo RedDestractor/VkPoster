@@ -12,17 +12,27 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
+using VkPoster.ViewModel;
 
 namespace VkPoster.View
 {
-    /// <summary>
-    /// Логика взаимодействия для ProgressView.xaml
-    /// </summary>
     public partial class ProgressView : Page
     {
         public ProgressView()
         {
             InitializeComponent();
+
+            var dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(GetExecutionInTimerEvent);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 5);
+            dispatcherTimer.Start();
+        }
+
+        private void GetExecutionInTimerEvent(object sender, EventArgs e)
+        {
+            var viewModel = (GroupsSelectionViewModel)DataContext;
+            viewModel.SetPostToAdminGroup.Execute(null);
         }
     }
 }
