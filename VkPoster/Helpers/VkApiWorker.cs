@@ -27,11 +27,11 @@ namespace VkPoster.Helpers
 
         public VkApiWorker(GroupsSelectionViewModel ctx)
         {
-            _vkApi = VkApiSingleton.GetInstance;
+            _vkApi = Api.GetInstance();
         }
 
         public List<GroupDto> GetGroups(bool isAdminOnly = false)
-        {            
+        {
             var groupsDtoList = new List<GroupDto>();
 
             var groups = isAdminOnly
@@ -39,7 +39,7 @@ namespace VkPoster.Helpers
                 : _vkApi.Groups.Get(new GroupsGetParams() { Extended = true, Filter = GroupsFilters.Publics, Fields = GroupsFields.All });
             foreach (var group in groups)
             {
-                var groupDto = new GroupDto {Name = @group.Name};
+                var groupDto = new GroupDto { Name = @group.Name };
 
                 var src = new BitmapImage();
                 src.BeginInit();
@@ -60,21 +60,35 @@ namespace VkPoster.Helpers
         public void SetPostToAdminGroup()
         {
             var post = GetPost();
-
             var attachments = new List<MediaAttachment>();
+            var wallPostsParam = new WallPostParams();
+            var isOnPost = false;
 
-            foreach(var source in post.Attachments)
+            foreach (var source in post.Attachments)
             {
-                attachments.Add(source.Instance as MediaAttachment);
+                if (source.Instance is Photo attachment)
+                {
+                    attachments.Add(attachment);
+                }
             }
-
-            _vkApi.Wall.Post(new WallPostParams()
+            
+            if (attachments.Count > 0)
             {
-                OwnerId = -AdminGroupToPost.Id,
-                //Attachments = attachments
-                Message = post.Text
-            });
+                wallPostsParam.Attachments = attachments;
+                isOnPost = true;
+            }
+            if (!string.IsNullOrEmpty(post.Text))
+            {
+                wallPostsParam.Message = post.Text;
+                isOnPost = true;
+            }
+            wallPostsParam.OwnerId = -AdminGroupToPost.Id;
+            wallPostsParam.FromGroup = true;
+
+            if(isOnPost)
+                _vkApi.Wall.Post(wallPostsParam);
         }
+
 
         private Post GetPost()
         {
@@ -92,6 +106,6 @@ namespace VkPoster.Helpers
             GroupsToGetPosts.Enqueue(groupToGetPost);
 
             return post;
-        }        
+        }
     }
 }

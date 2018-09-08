@@ -1,31 +1,23 @@
-﻿using GalaSoft.MvvmLight.Messaging;
+﻿using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
+using Microsoft.Extensions.DependencyInjection;
 using System.Windows.Controls;
+using VkNet;
+using VkNet.Enums.Filters;
+using VkNet.Model;
+using VkNet.Model.RequestParams;
+using VkNet.Utils;
+using VkNet.Wpf;
+using VkPoster.Containers;
+using VkPoster.Interfaces;
 
 namespace VkPoster.View
 {
     public partial class HomeView : Page
     {
-        AuthenticationView _authenticationView;
-
         public HomeView()
         {
             InitializeComponent();
-
-            Messenger.Default.Register<NotificationMessage>(this, NotificationMessageReceived);
-        }
-
-        private void NotificationMessageReceived(NotificationMessage message)
-        {
-            if (message.Notification == "ConnectToVk")
-            {
-                _authenticationView = new AuthenticationView();
-
-                _authenticationView.Show();
-            }
-            if (message.Notification == "ConnectionToVkFinished")
-            {
-                _authenticationView.Close();
-            }
         }
     }
 }

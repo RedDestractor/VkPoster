@@ -59,22 +59,14 @@ namespace VkPoster.ViewModel
             set => Set(ref _adminGroups, value);
         }
 
-        public GroupsSelectionViewModel(IDataService dataService, IFrameNavigationService navigationService)
+        public GroupsSelectionViewModel(IFrameNavigationService navigationService)
         {
             _vkApi = new VkApiWorker(this);
             _navigationService = navigationService;
-            dataService.GetData(
-                (item, error) =>
-                {
-                    if (error != null)
-                    {
-                        return;
-                    }
 
-                    WelcomeTitle = item.Title;
-                });
             var tmpGroups = _vkApi.GetGroups();
             var tmpAdminGroups = _vkApi.GetGroups(true);
+
             GroupsCollection = new ObservableCollection<GroupDto>(tmpGroups);
             AdminGroupsCollection = new ObservableCollection<GroupDto>(tmpAdminGroups);
             TimeForExecution = 15; 

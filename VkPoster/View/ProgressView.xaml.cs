@@ -24,8 +24,9 @@ namespace VkPoster.View
             InitializeComponent();
 
             var dispatcherTimer = new DispatcherTimer();
+            var viewModel = (GroupsSelectionViewModel)DataContext;
             dispatcherTimer.Tick += new EventHandler(GetExecutionInTimerEvent);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 5);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, viewModel.TimeForExecution);
             dispatcherTimer.Start();
         }
 

@@ -11,7 +11,7 @@
         DataContext="{Binding Home, Source={StaticResource Locator}}">
 
     <Grid x:Name="LayoutRoot">
-        <WebBrowser Name="webBrowser" HorizontalAlignment="Stretch" Margin="10,10,10,10" VerticalAlignment="Stretch" LoadCompleted="LoadCompletedEvent"/>
+        <WebBrowser Name="webBrowser" HorizontalAlignment="Stretch" Margin="10,10,10,10" VerticalAlignment="Stretch"/>
     </Grid>
     
 </Window>

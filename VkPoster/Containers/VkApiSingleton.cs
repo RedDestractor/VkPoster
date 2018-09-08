@@ -1,10 +1,23 @@
-﻿using VkNet;
+﻿using Microsoft.Extensions.DependencyInjection;
+using VkNet;
 
 namespace VkPoster.Containers
 {
-    public static class VkApiSingleton
+	public class Api
     {
-        private static VkApi _vkApiInstance;
-        public static VkApi GetInstance => _vkApiInstance ?? (_vkApiInstance = new VkApi());
+        private static VkApi _instance;
+
+        private Api()
+        { }
+
+        public static VkApi GetInstance(IServiceCollection collection)
+        {
+            return _instance ?? (_instance = new VkApi(collection));
+        }
+
+        public static VkApi GetInstance()
+        {
+            return _instance ?? (_instance = new VkApi());
+        }
     }
 }
