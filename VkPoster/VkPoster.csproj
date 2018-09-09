@@ -111,7 +111,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\GroupDto.cs" />
-    <Compile Include="Interfaces\IAuthService.cs" />
     <Compile Include="Services\FrameNavigationService.cs" />
     <Compile Include="Helpers\VkApiWorker.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />

@@ -37,7 +37,7 @@
 
         <Button 
                    Command="{Binding ShowAuthenticationViewCommand}"
-                   Content="Connect" Grid.Row="4" Margin="10.6,2,10.4,2" Grid.Column="1" FontSize="25"
+                   Content="Connect" Grid.Row="3" Margin="10.6,2,10.4,2" Grid.Column="1" FontSize="25"
                    />
 
     </Grid>

@@ -20,14 +20,16 @@ namespace VkPoster.Helpers
 {
     public class VkApiWorker
     {
-        private readonly VkApi _vkApi;
-
         public Queue<GroupDto> GroupsToGetPosts { get; set; }
         public GroupDto AdminGroupToPost { get; set; }
+
+        private readonly VkApi _vkApi;
+        private readonly List<Post> _lastPosted;
 
         public VkApiWorker(GroupsSelectionViewModel ctx)
         {
             _vkApi = Api.GetInstance();
+            _lastPosted = new List<Post>();
         }
 
         public List<GroupDto> GetGroups(bool isAdminOnly = false)
@@ -66,7 +68,7 @@ namespace VkPoster.Helpers
 
             foreach (var source in post.Attachments)
             {
-                if (source.Instance is Photo attachment)
+                if (source.Instance is MediaAttachment attachment)
                 {
                     attachments.Add(attachment);
                 }
@@ -89,7 +91,6 @@ namespace VkPoster.Helpers
                 _vkApi.Wall.Post(wallPostsParam);
         }
 
-
         private Post GetPost()
         {
             var groupToGetPost = GroupsToGetPosts.Dequeue();
@@ -97,11 +98,17 @@ namespace VkPoster.Helpers
             var groupData = _vkApi.Wall.Get(new WallGetParams
             {
                 OwnerId = -groupToGetPost.Id,
-                Count = 10,
+                Count = 15,
                 Extended = true
             }).WallPosts;
 
-            var post = groupData.FirstOrDefault();
+            var post = groupData
+                .Where(x => !_lastPosted
+                .Select(y => y.Id)
+                .Contains(x.Id))
+                .FirstOrDefault();
+
+            _lastPosted.Add(post);
 
             GroupsToGetPosts.Enqueue(groupToGetPost);
 
